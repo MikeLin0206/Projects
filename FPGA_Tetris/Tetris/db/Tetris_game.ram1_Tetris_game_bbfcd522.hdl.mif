@@ -1,0 +1,18 @@
+-- begin_signature
+-- Tetris_game
+-- end_signature
+WIDTH=8;
+DEPTH=7;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=BIN;
+
+CONTENT BEGIN
+	6 :	00111111;
+	5 :	10011111;
+	4 :	11001111;
+	3 :	11100111;
+	2 :	11110011;
+	1 :	11111001;
+	0 :	11111100;
+END;

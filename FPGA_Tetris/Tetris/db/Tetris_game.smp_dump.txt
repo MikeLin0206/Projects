@@ -1,0 +1,6 @@
+
+State Machine - |Tetris_game|mode1
+Name mode1.00000 mode1.01000 mode1.00111 
+mode1.00000 0 0 0 
+mode1.00111 1 0 1 
+mode1.01000 1 1 0 

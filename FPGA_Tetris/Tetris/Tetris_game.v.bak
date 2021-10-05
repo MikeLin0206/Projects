@@ -1,0 +1,15 @@
+module Tetris_game(CLK,Turn,Down,Left,Right,COL,EN,DATA_R,DATA_G,DATA_B);
+    output reg [7:0] DATA_R,DATA_G,DATA_B;
+	 output reg [2:0] COL;
+	 output reg EN;
+	 reg run;
+	 input CLK,Turn,Down,Left,Right;
+	 reg [7:0] state [15:0];
+    
+	 initial
+	 begin
+	     state[1] = 8'b00000000;
+		  DATA_R = state[1];
+	 end
+	 
+endmodule

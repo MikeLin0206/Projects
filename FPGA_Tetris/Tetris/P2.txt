@@ -1,0 +1,654 @@
+		  // mode1 1 for square   O
+		  //                      OO
+		  //                      O
+        if(mode1 == 1)
+		    begin
+		    if(CLK_div2 == 1)    //square starts falling    
+		      begin
+              if(run == 0 || run == 1)
+				    begin
+		              if((plate[current][run+2] == 1'b0) || (plate[current+1][run+1] == 1'b0))  
+				          begin
+							   if(run == 0)                  
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 7;
+					         plate[current+1] = plate[current +1] - 2;
+								run = run + 1;
+								permit = 0;
+							 end
+					 end	  
+				  else 
+				    begin
+					   if((plate[current][run+2] == 1'b0) || (plate[current+1][run+1] == 1'b0))
+						  begin
+						    run = 0;
+							 mode1 = random2;
+						  end
+						else
+						  begin
+				          plate[current] = plate[current] - 7*(2**(factor));
+				     	    plate[current + 1] = plate[current + 1] - 2*(2**(factor));
+					       factor = factor + 1;
+							 run = run + 1;
+						  end
+			       end  
+		        if(run == 6)    //another square starts falling with most rows
+				    begin
+				      run = 0;
+				      mode1 = random2;
+				    end
+			   end
+				if((turn == 1) && (current != 0))
+				    begin
+                  mode1 = 2;
+                  plate[current-1][run] = 1'b0;
+					   plate[current][run-1] = 1'b1;
+						current = current - 1;
+						run = run + 1;
+						if(run > 2)
+						  factor = factor + 1;
+               end 
+		    end
+			
+		  
+	     // mode1 2 for square   OOO
+		  //                       O
+        else if(mode1 == 2)	 
+		    begin
+		      if(CLK_div2 == 1)    //square starts falling    
+		        begin
+                if(run == 0 || run == 1)
+					   begin
+		              if((plate[current][run] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+							       run = 0;	  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 1;
+					         plate[current+1] = plate[current +1] - 3;
+								plate[current+2] = plate[current +2] - 1;
+								run = run + 1;
+								permit = 0;
+							 end
+					   end	  
+				    else 
+				      begin
+					     if((plate[current][run] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run] == 1'b0))
+						    begin
+						      run = 0;
+							   mode1 = random2;
+						    end
+						  else
+						    begin
+				            plate[current] = plate[current] - 1*(2**(factor));
+				     	      plate[current + 1] = plate[current + 1] - 3*(2**(factor));
+								plate[current + 2] = plate[current + 2] - 1*(2**(factor));
+					         factor = factor + 1;
+							   run = run + 1;
+						    end
+				      end
+				    if(run == 7)    //another square starts falling with most rows
+				      begin
+				        run = 0;
+				        mode1 = random2;
+				      end
+				  end
+			     if(turn == 1)
+				    begin
+                  mode1 = 3;
+                  plate[current][run] = 1'b0;
+                  plate[current][run-1] = 1'b1;
+						plate[current+1][run+1] = 1'b0;
+						plate[current+2][run-1] = 1'b1;
+                end	  
+			   end		  
+		  // mode1 3 for square    O
+		  //                      OO
+		  //                       O
+		    
+	     else if(mode1 == 3)
+		    begin
+		    if(CLK_div2 == 1)    //square starts falling    
+		      begin
+              if(run == 0 || run == 1)
+				    begin
+		              if((plate[current][run+1] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+				          begin
+				           	if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 2;
+					         plate[current+1] = plate[current +1] - 7;
+								run = run + 1;
+								permit = 0;
+							 end
+					 end	  
+				  else 
+				    begin
+					   if((plate[current][run+1] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+						  begin
+						    run = 0;
+							 mode1 = random2;
+						  end
+						else
+						  begin
+				          plate[current] = plate[current] - 2*(2**(factor));
+				     	    plate[current + 1] = plate[current + 1] - 7*(2**(factor));
+					       factor = factor + 1;
+							 run = run + 1;
+						  end
+				    end  
+		        if(run == 6)    //another square starts falling with most rows
+				    begin
+				      run = 0;
+				      mode1 = random2;
+				    end
+				end
+				if((turn == 1) && (current != 6))
+				    begin
+                  mode1 = 4;
+                  plate[current+2][run] = 1'b0;
+                  plate[current+1][run+1] = 1'b1;
+                end
+			end
+			  
+	     // mode1 4 for square    O
+		  //                      OOO
+        else if(mode1 == 4)  	 
+		    begin
+		      if(CLK_div2 == 1)    //square starts falling    
+		        begin
+                if(run == 0 || run == 1)
+					   begin
+		              if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 2;
+					         plate[current+1] = plate[current +1] - 3;
+								plate[current+2] = plate[current +2] - 2;
+								run = run + 1;
+								permit = 0;
+							 end
+					   end	  
+				    else 
+				      begin
+					     if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+						    begin
+						      run = 0;
+							   mode1 = random2;
+						    end
+						  else
+						    begin
+				            plate[current] = plate[current] - 2*(2**(factor));
+				     	      plate[current + 1] = plate[current + 1] - 3*(2**(factor));
+								plate[current + 2] = plate[current + 2] - 2*(2**(factor));
+					         factor = factor + 1;
+							   run = run + 1;
+						    end
+				      end
+				    if(run == 7)    //another square starts falling with most rows
+				      begin
+				        run = 0;
+				        mode1 = random2;
+				      end
+				  end
+				  if(turn == 1)
+				    begin
+                  mode1 = 1;
+                  plate[current+1][run+1] = 1'b0;
+                  plate[current][run] = 1'b1;
+						current = current + 1;
+                end
+				 end			 
+	     // mode1 5 for square    OO
+		  //                      OO
+        else if(mode1 == 5)  	 
+		    begin
+		      if(CLK_div2 == 1)    //square starts falling    
+		        begin
+                if(run == 0 || run == 1)
+					   begin
+		              if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 2;
+					         plate[current+1] = plate[current +1] - 3;
+								plate[current+2] = plate[current +2] - 1;
+								run = run + 1;
+								permit = 0;
+							 end
+					   end	  
+				    else 
+				      begin
+					     if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run] == 1'b0))
+						    begin
+						      run = 0;
+							   mode1 = random2;
+						    end
+						  else
+						    begin
+				            plate[current] = plate[current] - 2*(2**(factor));
+				     	      plate[current + 1] = plate[current + 1] - 3*(2**(factor));
+								plate[current + 2] = plate[current + 2] - 1*(2**(factor));
+					         factor = factor + 1;
+							   run = run + 1;
+						    end
+				       end
+				    if(run == 7)    //another square starts falling with most rows
+				      begin
+				        run = 0;
+				        mode1 = random2;
+				      end
+				    end
+					 if(turn == 1)
+				    begin
+                  mode1 = 6;
+                  plate[current+2][run] = 1'b0;;
+                  plate[current][run] = 1'b1;
+						plate[current+2][run+1] = 1'b0;
+						plate[current+2][run-1] = 1'b1;
+						current = current + 1;
+               end
+				 end
+				  
+			  
+		  // mode1 6 for square   O
+		  //                      OO
+		  //                       O
+		    
+	     else if(mode1 == 6)
+		    begin
+		    if(CLK_div2 == 1)    //square starts falling    
+		      begin
+              if(run == 0 || run == 1)
+				    begin
+		              if((plate[current][run+1] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 3;
+					         plate[current+1] = plate[current +1] - 6;
+								run = run + 1;
+								permit = 0;
+							 end
+					 end	  
+				  else 
+				    begin
+					   if((plate[current][run+1] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+						  begin
+						    run = 0;
+							 mode1 = random2;
+						  end
+						else
+						  begin
+				          plate[current] = plate[current] - 3*(2**(factor));
+				     	    plate[current + 1] = plate[current + 1] - 6*(2**(factor));
+					       factor = factor + 1;
+							 run = run + 1;
+						  end
+				    end  
+		        if(run == 6)    //another square starts falling with most rows
+				    begin
+				      run = 0;
+				      mode1 = random2;
+				    end
+				end
+				if((turn == 1))
+				    begin
+                  mode1 = 5;
+                  plate[current+1][run-1] = 1'b0;
+                  plate[current][run-1] = 1'b1;
+						plate[current+2][run-1] = 1'b0;
+                  plate[current+1][run+1] = 1'b1;
+                end
+			end
+
+        // mode1 9 for square   O
+		  //                      OOO
+		  else if(mode1 == 9)  	 
+		    begin
+		      if(CLK_div2 == 1)    //square starts falling    
+		        begin
+                if(run == 0 || run == 1)
+					   begin
+		              if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 3;
+					         plate[current+1] = plate[current +1] - 2;
+								plate[current+2] = plate[current +2] - 2;
+								run = run + 1;
+								permit = 0;
+							 end
+					   end	  
+				    else 
+				      begin
+					     if((plate[current][run+1] == 1'b0) || (plate[current+1][run+1] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+						    begin
+						      run = 0;
+							   mode1 = random2;
+						    end
+						  else
+						    begin
+				            plate[current] = plate[current] - 3*(2**(factor));
+				     	      plate[current + 1] = plate[current + 1] - 2*(2**(factor));
+								plate[current + 2] = plate[current + 2] - 2*(2**(factor));
+					         factor = factor + 1;
+							   run = run + 1;
+						    end
+				      end
+				    if(run == 7)    //another square starts falling with most rows
+				      begin
+				        run = 0;
+				        mode1 = random2;
+				      end
+				    end
+					 if(turn == 1)
+				    begin
+                  mode1 = 10;
+                  plate[current][run+1] = 1'b0;
+                  plate[current+1][run] = 1'b1;
+						plate[current+1][run-1] = 1'b0;
+						plate[current+2][run] = 1'b1;
+                end
+			 end
+
+		  // mode1 10 for square  OO
+		  //                      O
+		  //                      O
+		    
+	     else if(mode1 == 10)
+		    begin
+		    if(CLK_div2 == 1)    //square starts falling    
+		      begin
+              if(run == 0 || run == 1)
+				    begin
+		              if((plate[current][run+2] == 1'b0) || (plate[current+1][run] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 7;
+					         plate[current+1] = plate[current +1] - 1;
+								run = run + 1;
+								permit = 0;
+							 end
+					 end	  
+				  else 
+				    begin
+					   if((plate[current][run+2] == 1'b0) || (plate[current+1][run] == 1'b0))
+						  begin
+						    run = 0;
+							 mode1 = random2;
+						  end
+						else
+						  begin
+				          plate[current] = plate[current] - 7*(2**(factor));
+				     	    plate[current + 1] = plate[current + 1] - 1*(2**(factor));
+					       factor = factor + 1;
+							 run = run + 1;
+						  end
+				    end  
+		        if(run == 6)    //another square starts falling with most rows
+				    begin
+				      run = 0;
+				      mode1 = random2;
+				    end
+				  end
+				  if((turn == 1) && (current != 0))
+				    begin
+                  mode1 = 11;
+                  plate[current+1][run] = 1'b0;
+                  plate[current][run] = 1'b1;
+						plate[current-1][run-1] = 1'b0;
+						plate[current][run+1] = 1'b1;
+						current = current - 1;
+                end
+			  end
+		
+				
+        // mode1 11 for square  OOO
+		  //                        O
+		  else if(mode1 == 11)  	 
+		    begin
+		      if(CLK_div2 == 1)    //square starts falling    
+		        begin
+                if(run == 0 || run == 1)
+					   begin
+		              if((plate[current][run] == 1'b0) || (plate[current+1][run] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 1;
+					         plate[current+1] = plate[current +1] - 1;
+								plate[current+2] = plate[current +2] - 3;
+								run = run + 1;
+								permit = 0;
+							 end
+					   end	  
+				    else 
+				      begin
+					     if((plate[current][run] == 1'b0) || (plate[current+1][run] == 1'b0) ||
+						     (plate[current+2][run+1] == 1'b0))
+						    begin
+						      run = 0;
+							   mode1 = random2;
+						    end
+						  else
+						    begin
+				            plate[current] = plate[current] - 1*(2**(factor));
+				     	      plate[current + 1] = plate[current + 1] - 1*(2**(factor));
+								plate[current + 2] = plate[current + 2] - 3*(2**(factor));
+					         factor = factor + 1;
+							   run = run + 1;
+						    end
+				      end
+				    if(run == 7)    //another square starts falling with most rows
+				      begin
+				        run = 0;
+				        mode1 = random2;
+				      end
+				    end
+					 if(turn == 1)
+				    begin
+                 mode1 = 12;
+                 plate[current+2][run+1] = 1'b0;
+                 plate[current+1][run-1] = 1'b1;
+					  plate[current+1][run+1] = 1'b0;
+					  plate[current][run-1] = 1'b1;
+					  current = current + 1;
+                end
+				 end
+
+			
+		  // mode1 12 for square   O
+		  //                       O
+		  //                      OO
+		    
+	     else if(mode1 == 12)
+		    begin
+		    if(CLK_div2 == 1)    //square starts falling    
+		      begin
+              if(run == 0 || run == 1)
+				    begin
+		              if((plate[current][run+2] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+				          begin
+				            if(run == 0)
+								  begin
+									 current = current + 1;
+								    permit = 1;
+								  end
+								else
+						        begin
+								    run = 0;  
+				                mode1 = random2;
+									 permit = 0;
+								  end
+				          end
+				        else		
+						    begin  
+				            plate[current] = plate[current] - 4;
+					         plate[current+1] = plate[current +1] - 7;
+								run = run + 1;
+								permit = 0;
+							 end
+					 end	  
+				  else 
+				    begin
+					   if((plate[current][run+2] == 1'b0) || (plate[current+1][run+2] == 1'b0))
+						  begin
+						    run = 0;
+							 mode1 = random2;
+						  end
+						else
+						  begin
+				          plate[current] = plate[current] - 4*(2**(factor));
+				     	    plate[current + 1] = plate[current + 1] - 7*(2**(factor));
+					       factor = factor + 1;
+							 run = run + 1;
+						  end
+				    end  
+		        if(run == 6)    //another square starts falling with most rows
+				    begin
+				      run = 0;
+				      mode1 = random2;
+				    end
+				  end
+			  if((turn == 1))
+				    begin
+                  mode1 = 9;
+                  plate[current][run-1] = 1'b0;
+                  plate[current][run+1] = 1'b1;
+						plate[current][run] = 1'b0;
+						plate[current+1][run+1] = 1'b1;
+						plate[current+2][run] = 1'b0;
+						plate[current+1][run-1] = 1'b1;
+                end
+				end
+
+			 
+random1 = (6 * (random1*(run+6)) + 7) % 34;
+		  random2 = (random1 % 12) + 1;
+		  
+		  if((random2 == 7))
+		    random2 = random2 +2;
+		  else if(random2 == 8)
+		    random2 = random2 +2;
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="Tetris_game">
+		<CBX_INST_ENTRY INSTANCE_NAME="|Tetris_game|lpm_divide:Mod0" CBX_FILE_NAME="lpm_divide_2am.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Tetris_game|lpm_divide:Mod1" CBX_FILE_NAME="lpm_divide_i8m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Tetris_game|lpm_mult:Mult0" CBX_FILE_NAME="mult_v8t.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

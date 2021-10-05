@@ -1,0 +1,5 @@
+Warning (10268): Verilog HDL information at Tetris_game.v(47): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at Tetris_game.v(6): object "Right" differs only in case from object "right" in the same scope
+Info (10281): Verilog HDL Declaration information at Tetris_game.v(6): object "Left" differs only in case from object "left" in the same scope
+Info (10281): Verilog HDL Declaration information at Tetris_game.v(6): object "Turn" differs only in case from object "turn" in the same scope
+Info (10281): Verilog HDL Declaration information at Tetris_game.v(6): object "Down" differs only in case from object "down" in the same scope
